@@ -64,4 +64,23 @@ describe('kepgaleria funkciok', () => {
       })
     });
   });
-})
+  it("elsorol_utolsora_leptetes", function () {
+    cy.visit("https://nao529.github.io/kepgaleria/");
+    cy.get("div.kiskep img").last().invoke("attr", "src").then((src)=>{
+      cy.get("button.bal").click();
+      cy.get("div.nagykep img").should("have.attr", "src", src);
+    });
+  });
+  it("utolsorol_elsore_leptetes", function () {
+    cy.visit("https://nao529.github.io/kepgaleria/");
+    cy.get("div.kiskep img").first().invoke("attr", "src").then((src)=>{
+      cy.get("div.kiskep img").then((KEPLISTA) => {
+        const db = KEPLISTA.length;
+        for (let i = 0; i < db; i++) {
+          cy.get("button.jobb").click();
+        }
+      });
+      cy.get("div.nagykep img").should("have.attr", "src", src);
+    });
+  });
+});
